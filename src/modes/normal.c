@@ -2372,42 +2372,24 @@ handle_mouse_event(key_info_t key_info, keys_info_t *keys_info)
 		int list_pos = fview_map_coordinates(curr_view, e.x, e.y);
 		if(list_pos >= 0)
 		{
-			int old_pos = curr_view->list_pos;
 			fpos_set_pos(curr_view, list_pos);
-
-			if(curr_view->list_pos == old_pos)
-			{
-				cmd_return(key_info, keys_info);
-			}
 		}
-		else if(list_pos == FVM_LEAVE)
-		{
-			cmd_gh(key_info, keys_info);
-		}
-		else if(list_pos == FVM_OPEN)
-		{
-			cmd_i(key_info, keys_info);
-		}
+	}
+	else if(e.bstate & BUTTON2_PRESSED)
+	{
+		cmd_h(key_info, keys_info);
 	}
 	else if(e.bstate & BUTTON3_PRESSED)
 	{
-		wmouse_trafo(curr_view->win, &e.y, &e.x, FALSE);
-
-		/* Only handle clicks on non-blank lines. */
-		int list_pos = fview_map_coordinates(curr_view, e.x, e.y);
-		if(list_pos >= 0)
-		{
-			fpos_set_pos(curr_view, list_pos);
-			curr_stats.save_msg = show_file_menu(curr_view, 0);
-		}
+		cmd_l(key_info, keys_info);
 	}
 	else if(e.bstate & BUTTON4_PRESSED)
 	{
-		cmd_ctrl_y(key_info, keys_info);
+		cmd_k(key_info, keys_info);
 	}
-	else if(e.bstate & (BUTTON2_PRESSED | BUTTON5_PRESSED))
+	else if(e.bstate & BUTTON5_PRESSED)
 	{
-		cmd_ctrl_e(key_info, keys_info);
+		cmd_j(key_info, keys_info);
 	}
 }
 
